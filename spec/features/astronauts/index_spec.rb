@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'astronauts index page' do
   before :each do
-    @astronaut_1 = Astronaut.create!(name: 'Buzz', age: 32, job: 'pilot')
-    @astronaut_2 = Astronaut.create!(name: 'Hank', age: 24, job: 'engineer')
-    @astronaut_3 = Astronaut.create!(name: 'Steve', age: 29, job: 'chef')
+    test_data
     visit '/astronauts'
   end
   describe "As a visitor, when I visit the Astronauts index page ('/astronauts')" do
@@ -21,6 +19,26 @@ RSpec.describe 'astronauts index page' do
     end
     it 'shows me the average age of all astronauts' do
       expect(page).to have_content("Average Age: 28")
+    end
+    it 'shows me the missions for each astronaut in alphabetical order' do
+      within "#astronaut-#{@astronaut_1.id}" do
+        expect(page).to have_content("#{@mission_1.title}")
+        expect(page).to have_content("#{@mission_2.title}")
+        expect(page).to have_content("#{@mission_3.title}")
+
+        expect("#{@mission_2.title}").to appear_before("#{@mission_1.title}")
+        expect("#{@mission_1.title}").to appear_before("#{@mission_3.title}")
+      end
+
+      within "#astronaut-#{@astronaut_2.id}" do
+        expect(page).to have_content("#{@mission_2.title}")
+        expect(page).to have_content("#{@mission_3.title}")
+
+        expect("#{@mission_2.title}").to appear_before("#{@mission_3.title}")
+      end
+      within "#astronaut-#{@astronaut_1.id}" do
+        expect(page).to have_content("#{@mission_2.title}")
+      end
     end
   end
 end
