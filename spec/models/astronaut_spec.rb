@@ -14,13 +14,23 @@ describe Astronaut, type: :model do
 
   describe '::class methods' do
     before :each do
-      @astronaut_1 = Astronaut.create!(name: 'Buzz', age: 32, job: 'pilot')
-      @astronaut_2 = Astronaut.create!(name: 'Hank', age: 24, job: 'engineer')
-      @astronaut_3 = Astronaut.create!(name: 'Steve', age: 29, job: 'chef')
+      test_data
     end
     describe '::average_age' do
       it 'returns average age of all astronauts as integer' do
         expect(Astronaut.average_age).to eq(28)
+      end
+    end
+  end
+
+  describe '#instance methods' do
+    before :each do
+      test_data
+    end
+    describe '#missions' do
+      it 'returns an alphabetized list of missions for an astronaut' do
+        expect(@astronaut_1.missions).to eq ([@mission_2, @mission_1, @mission_3])
+        expect(@astronaut_2.missions).to eq ([@mission_2, @mission_3])
       end
     end
   end
