@@ -11,4 +11,8 @@ class Astronaut < ApplicationRecord
     missions = AstronautMission.select(:mission_id).where(astronaut_id: id)
     Mission.where(id: missions).order(:title)
   end
+
+  def time_in_space
+    missions.sum(:time_in_space)
+  end
 end
