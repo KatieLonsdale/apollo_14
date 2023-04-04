@@ -1,0 +1,9 @@
+<section id="astronaut-details">
+  <%= "#{@astronaut.name}" %>
+  <p>Missions:</p>
+  <ul>
+  <% @astronaut.missions.each do |mission| %>
+    <li><%= mission.title %>
+  <% end %>
+  </ul>
+</section>
