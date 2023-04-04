@@ -14,9 +14,9 @@ RSpec.describe 'astronauts show page' do
 
     it 'shows me a list of missions the astronaut has been on' do
       within '#astronaut-details' do
-      expect(page).to have_content('Capricorn 4')
-      expect(page).to have_content('Apollo 13')
-      expect(page).to have_content('Gemini 7')
+        expect(page).to have_content('Capricorn 4')
+        expect(page).to have_content('Apollo 13')
+        expect(page).to have_content('Gemini 7')
       end
     end
   end
